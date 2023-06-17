@@ -1,0 +1,41 @@
+package basics;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.interactions.Actions;
+
+public class LoginScript {
+	public static void main(String[] args) throws Throwable
+	{
+		//Instantiate the browser specific class
+		WebDriver driver = new ChromeDriver();
+		//Maximize 
+		driver.manage().window().maximize();
+		//Pass the main URL of the application
+		driver.get("https://demo.dealsdray.com/");
+		//Find the username and password input fields and enter the credentials
+		WebElement usernameinput = driver.findElement(By.name("username"));
+		WebElement passwordinput = driver.findElement(By.name("password"));
+		usernameinput.sendKeys("prexo.mis@dealsdray.com");
+		passwordinput.sendKeys("prexo.mis@dealsdray.com"); 
+		WebElement loginButton=driver.findElement(By.cssSelector("button[type='submit']"));
+		loginButton.submit();
+		Thread.sleep(5000);
+		driver.findElement(By.className("css-sukebr")).click();
+		driver.findElement(By.cssSelector("a[href='/mis/orders']")).click();
+		Actions actions=new Actions(driver);
+		actions.moveByOffset(500,50).click().perform();
+		driver.findElement(By.cssSelector("button[align='right']")).click();
+		WebElement FileB=driver.findElement(By.xpath("//input[@type='file'"));
+		FileB.sendKeys("C:\\Users\\User\\Desktop\\Users\\demo-data.xlsx");
+		driver.findElement(By.xpath("//button[contains(text(),'Import')]")).click();
+		driver.findElement(By.xpath("//button[contains(text(),'validate')]")).click();
+		//Minimize
+		driver.manage().window().minimize();
+		//Terminate the session
+		driver.quit();
+	}
+
+}
